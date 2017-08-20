@@ -36,11 +36,28 @@ public class Board {
     }
 
     private void checkBoard() {
+    	
+    	boolean flag = false;
+    	
         for (int row = 0; row < this.board.length; row++) {
             if (!checkRow(row)) {
-                System.out.print("fail");
+                System.out.print("fail for row "+ (row+1));
                 return;
             }
+            else
+            	flag = true;
+        }
+        
+        if(flag == true)
+        {
+        	for(int column =0;column < this.board[0].length;column++)
+        	{
+        		if(!checkColumn(column))
+        		{
+        			System.out.println("FAIL FOR COLUMN " + (column+1));
+        			return;
+        		}
+        	}
         }
         System.out.print("success");
     }
@@ -51,13 +68,48 @@ public class Board {
         //int reference[] = {1, 1, 1, 1, 1 , 1, 1, 1, 1}; //this will also work.
         for (int col = 0; col < this.board[row].length; col++) {
             int temp = board[row][col];
-            reference[temp - 1] = 0;
+            
+            if(reference[temp-1]==0)
+            {
+            	return false;
+            }
+            
+            else
+            	reference[temp - 1] = 0;
         }//after this loop, all the elements of reference should be zero.
-        for (int refIndex = 0; refIndex < reference.length; refIndex++) {
+        
+        
+        /*for (int refIndex = 0; refIndex < reference.length; refIndex++) {
             if (reference[refIndex] != 0) {
                 return false;
-            }
-        }
+            }*/
         return true;
     }
+    
+    private boolean checkColumn(int column)
+    {
+    	int reference[] = {1, 2, 3, 4, 5 ,6, 7, 8, 9};
+    	
+    	boolean flag= true;
+    	
+    	for(int row = 0; row < this.board.length;row++)
+    	{
+    		int temp = board[row][column];
+    		
+    		if(reference[temp-1] == 0)
+    		{
+    			flag = false;
+    			break;
+    		}
+    		
+    		else
+    			reference[temp-1]=0;
+    	}
+    	
+		return flag;
+    	
+    	
+    }
+        
 }
+
