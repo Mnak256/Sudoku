@@ -5,7 +5,7 @@ public class Board {
 
     private int board[][];
 
-    public static void main(String[]args) {
+    /*public static void main(String[]args) {
     	System.out.println("Enter Sudoku");
         Scanner scanner = new Scanner(System.in);
         Board boardObj = new Board();
@@ -20,43 +20,66 @@ public class Board {
         boardObj.checkBoard();
         System.out.println();
         //boardObj.display();
-    }
+    }*/
 
-    private void setBoard(int board[][]) {
+    public void setBoard(int board[][]) 
+    {
         this.board = board;
     }
 
-    private void display() {
+    /*private void display() 
+    {
         for (int i = 0; i < this.board.length; i++) {
             for (int j = 0; j < this.board[0].length; j++) {
                 System.out.print(this.board[i][j] + "\t");
             }
             System.out.println();
         }
-    }
+    }*/
 
-    private void checkBoard() {
-        for (int row = 0; row < this.board.length; row++) {
-            if (!checkRow(row)) {
-                System.out.print("Failed for Row "+ row);
-                return;
-            }
-        }
-        for(int column = 0; column < this.board[0].length; column++)
+    public boolean checkBoard() 
+    {
+    	boolean flag = true;
+    	
+        for (int row = 0; row < this.board.length; row++) 
         {
-            if(!checkColumn(column))
+            if (!checkRow(row)) 
             {
-                System.out.println("Failed for Column " + column);
-                return;
+                //System.out.print("Failed for Row "+ row);
+                flag = false;
+                break;
             }
         }
-        for (int subBoxIndex = 0; subBoxIndex < this.board.length; subBoxIndex++) {
-            if (!checkSubBox(subBoxIndex)) {
-                System.out.println("Failed for Sub Box " + subBoxIndex);
-                return;
-            }
+        
+        
+        if(flag ==true)
+        {
+	        for(int column = 0; column < this.board[0].length; column++)
+	        {
+	            if(!checkColumn(column))
+	            {
+	                System.out.println("Failed for Column " + column);
+	                flag = false;
+	                break;
+	                //return;
+	            }
+	        }
+	        
+	        if(flag == true)
+	        {
+		        for (int subBoxIndex = 0; subBoxIndex < this.board.length; subBoxIndex++) 
+		        {
+		            if (!checkSubBox(subBoxIndex)) {
+		                System.out.println("Failed for Sub Box " + subBoxIndex);
+		                //return;
+		                flag = false;
+		            }
+		        }
+		        //System.out.print("success");
+	        }
         }
-        System.out.print("success");
+        
+        return flag;
     }
 
     private boolean checkRow(int row) {
